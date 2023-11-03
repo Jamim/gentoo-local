@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+emaint sync -A
+eix-update
+update-world -pv
