@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# Mount NTFS/FAT formatted drives with desired options
+
+set -e
+
+COMMON_OPTIONS="rw,noatime,nodiratime,uid=mim,gid=mim,fmask=133,dmask=022"
+
+device="${1:-/dev/sdb1}"
+mount_point="${2:-/mnt/flash}"
+
+mount \
+  -t ntfs3 \
+  -o "${COMMON_OPTIONS}" \
+  ${device} ${mount_point} 2> /dev/null || \
+mount \
+  -t vfat \
+  -o "${COMMON_OPTIONS},utf8,codepage=866,iocharset=cp1251" \
+  ${device} ${mount_point}

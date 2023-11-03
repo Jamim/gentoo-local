@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Umount a flash drive
+
+set -e
+
+mount_point="${1:-/mnt/flash}"
+
+umount ${mount_point}
+
+# from time to time umount
+# may not perform a sync
+sync
