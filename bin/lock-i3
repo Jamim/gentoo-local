@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Lock the system and turn off displays
+
+# lock
+i3lock  -nfc 000000 &
+lock_pid=$!
+
+disable_power_saving() {
+  xset dpms 0 0 0
+}
+trap disable_power_saving HUP INT TERM
+
+# enable display power saving
+xset +dpms dpms 0 0 5
+
+
+
+
+# wait for me to take
+# hands off the keyboard
+sleep 0.2
+
+# turn off displays
+xset dpms force off
+
+# wait for unlocking
+wait ${lock_pid}
+
+disable_power_saving

@@ -1,0 +1,9 @@
+#!/bin/bash
+#
+# Lock either Sway or i3
+
+if pgrep -x sway > /dev/null; then
+  lock-sway
+else
+  lock-i3
+fi
