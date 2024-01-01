@@ -4,4 +4,4 @@ set -e
 
 emaint sync -A
 eix-update
-update-world -av "$@"
+update-world "${@:--av}"
