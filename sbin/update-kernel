@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+
+set -e
+
+new="$1"
+current="$2"
+old="$3"
+
+sed -e "s/${current}/${new}/" \
+	-e "s/${old}/${current}/" \
+	-i /boot/grub/grub.cfg
+
+rm "/boot/System.map-${new}-x86_64" "/boot/initramfs-${old}-x86_64.img" "/boot/vmlinuz-${old}-x86_64"
+ls -lh /boot
+echo
+
+rm -r "/lib/modules/${old}-x86_64"
+du -sh /lib/modules/*
+echo
+
+emerge -C gentoo-sources:${current/-*/}
+rm -r "/usr/src/linux-${current}"
+ls -l /usr/src
